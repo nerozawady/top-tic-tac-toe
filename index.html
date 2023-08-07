@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <title>Tic-Tac-Toe</title>
+  </head>
+  <body>
+    <div class="select-mode-screen">
+      <button class="select-mode select-mode-pvc">
+        Player<br />
+        vs<br />
+        Computer
+      </button>
+      <button class="select-mode select-mode-pvp">Player <br />vs<br />Player</button>
+    </div>
+
+    <div class="game-screen hidden">
+      <div class="scoreboard">
+        <div class="scorecard">
+          <div class="scorecard-name"></div>
+          <div class="scorecard-score">0</div>
+        </div>
+        <div class="scorecard">
+          <div class="scorecard-name"></div>
+          <div class="scorecard-score">0</div>
+        </div>
+      </div>
+
+      <div class="game-board-background">
+        <div class="round-result round-result-dummy">!</div>
+        <div class="round-result round-result-actual">won the round!</div>
+        <div class="game-board">
+          <button class="board-cell empty" data-number="0"></button>
+          <button class="board-cell empty" data-number="1"></button>
+          <button class="board-cell empty" data-number="2"></button>
+          <button class="board-cell empty" data-number="3"></button>
+          <button class="board-cell empty" data-number="4"></button>
+          <button class="board-cell empty" data-number="5"></button>
+          <button class="board-cell empty" data-number="6"></button>
+          <button class="board-cell empty" data-number="7"></button>
+          <button class="board-cell empty" data-number="8"></button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
