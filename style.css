@@ -3,7 +3,9 @@
   margin: 0;
   padding: 0;
   font-family: system-ui;
+}
 
+:root {
   --color-1-1: hsl(257, 62%, 71%);
   --color-1-2: hsl(257, 62%, 66%);
   --color-1-3: hsl(257, 62%, 61%);
@@ -13,6 +15,8 @@
   --color-3-1: hsl(182, 100%, 90%);
   --color-3-2: hsl(182, 100%, 85%);
   --color-3-3: hsl(182, 100%, 80%);
+
+  --game-result-height: 0px;
 }
 
 .hidden.hidden {
@@ -128,7 +132,7 @@ body > * {
   color: var(--color-1-3);
 }
 
-.round-result {
+.game-result {
   background-color: var(--color-1-1);
   color: white;
   border-top-left-radius: 25px;
@@ -136,25 +140,22 @@ body > * {
   padding: 1rem;
   font-size: 2rem;
   text-align: center;
-}
-
-.round-result-actual {
   position: relative;
-  top: 75px;
+  top: var(--game-result-height);
 }
 
-.round-result-actual.show {
+.game-result-show {
   animation: 0.5s ease-in-out 1 normal slide-up;
   animation-fill-mode: forwards;
 }
 
-.round-result-actual.hide {
+.game-result-hide {
   animation: 0.5s ease-in-out 1 normal slide-down;
 }
 
 @keyframes slide-up {
   0% {
-    top: 75px;
+    top: var(--game-result-height);
   }
 
   100% {
@@ -168,10 +169,30 @@ body > * {
   }
 
   100% {
-    top: 75px;
+    top: var(--game-result-height);
   }
 }
 
-.round-result-dummy {
-  display: none;
+.game-result-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.game-result-button {
+  border: none;
+  background-color: var(--color-2-1);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  width: 5rem;
+  height: 2rem;
+}
+
+.game-result-button:hover {
+  background-color: var(--color-2-2);
+}
+
+.game-result-button:active {
+  background-color: var(--color-2-3);
 }
