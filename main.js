@@ -111,8 +111,9 @@ EBoardCells.forEach(cell =>
     const cellNumber = cell.getAttribute('data-number');
     playCell(cell, cellNumber);
 
+    const winCoord = getTurnResult();
+
     if (gameState.turnsPlayed >= 5) {
-      const winCoord = getTurnResult();
       if (winCoord !== null) {
         if (gameState.board[winCoord[0]] === 'X') {
           gameState.playerOne.score += 1;
@@ -154,49 +155,58 @@ EBoardCells.forEach(cell =>
         }, 1500);
       }
     }
+    const x = [];
+    for (let i = 0; i < gameState.board.length; i++) {
+      const y = gameState.board[i];
+      if (y === '') {
+        x.push(i);
+      }
+    }
+    if (gameState.mode === 'pvc' && winCoord === null && x.length !== 0) {
+      playComputerRound();
 
-    playComputerRound();
-    if (gameState.turnsPlayed >= 5) {
-      const winCoord = getTurnResult();
-      if (winCoord !== null) {
-        if (gameState.board[winCoord[0]] === 'X') {
-          gameState.playerOne.score += 1;
-          EScorecardOneScore.textContent = gameState.playerOne.score;
-          gameState.gameWinner = gameState.playerOne.name;
-        } else {
-          gameState.playerTwo.score += 1;
-          EScorecardTwoScore.textContent = gameState.playerTwo.score;
-          gameState.gameWinner = gameState.playerTwo.name;
-        }
+      if (gameState.turnsPlayed >= 5) {
+        const winCoord = getTurnResult();
+        if (winCoord !== null) {
+          if (gameState.board[winCoord[0]] === 'X') {
+            gameState.playerOne.score += 1;
+            EScorecardOneScore.textContent = gameState.playerOne.score;
+            gameState.gameWinner = gameState.playerOne.name;
+          } else {
+            gameState.playerTwo.score += 1;
+            EScorecardTwoScore.textContent = gameState.playerTwo.score;
+            gameState.gameWinner = gameState.playerTwo.name;
+          }
 
-        EBoardCells.forEach(cell => {
-          cell.disabled = true;
-        });
+          EBoardCells.forEach(cell => {
+            cell.disabled = true;
+          });
 
-        EBoardCells[winCoord[0]].classList.add('win-cell');
-        EBoardCells[winCoord[1]].classList.add('win-cell');
-        EBoardCells[winCoord[2]].classList.add('win-cell');
+          EBoardCells[winCoord[0]].classList.add('win-cell');
+          EBoardCells[winCoord[1]].classList.add('win-cell');
+          EBoardCells[winCoord[2]].classList.add('win-cell');
 
-        if (gameState.playerOne.score < WIN_SCORE && gameState.playerTwo.score < WIN_SCORE) {
+          if (gameState.playerOne.score < WIN_SCORE && gameState.playerTwo.score < WIN_SCORE) {
+            setTimeout(() => {
+              resetRound();
+            }, 1500);
+          } else {
+            EGameResult.children[0].textContent = `${gameState.gameWinner} won the game`;
+            EGameResult.classList.add('game-result-show');
+            // setTimeout(() => {
+            //   EGameResult.classList.add('game-result-hide');
+            //   EGameResult.classList.remove('game-result-show');
+            //   roundEnd();
+            // }, 2000);
+            // setTimeout(() => {
+            //   EGameResult.classList.remove('game-result-hide');
+            // }, 2500);
+          }
+        } else if (winCoord === null && gameState.board.find(cell => cell === '') === undefined) {
           setTimeout(() => {
             resetRound();
           }, 1500);
-        } else {
-          EGameResult.children[0].textContent = `${gameState.gameWinner} won the game`;
-          EGameResult.classList.add('game-result-show');
-          // setTimeout(() => {
-          //   EGameResult.classList.add('game-result-hide');
-          //   EGameResult.classList.remove('game-result-show');
-          //   roundEnd();
-          // }, 2000);
-          // setTimeout(() => {
-          //   EGameResult.classList.remove('game-result-hide');
-          // }, 2500);
         }
-      } else if (winCoord === null && gameState.board.find(cell => cell === '') === undefined) {
-        setTimeout(() => {
-          resetRound();
-        }, 1500);
       }
     }
   })
@@ -288,7 +298,7 @@ function playComputerRound() {
   }
 
   const chosenCell = Math.floor(Math.random() * emptyCells.length);
-  playCell(EBoardCells[chosenCell], emptyCells[chosenCell]);
+  playCell(EBoardCells[emptyCells[chosenCell]], emptyCells[chosenCell]);
 }
 
 // TODO - computer RNG play
