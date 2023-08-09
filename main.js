@@ -300,5 +300,3 @@ function playComputerRound() {
   const chosenCell = Math.floor(Math.random() * emptyCells.length);
   playCell(EBoardCells[emptyCells[chosenCell]], emptyCells[chosenCell]);
 }
-
-// TODO - computer RNG play
